@@ -14,8 +14,9 @@ handler = HandleRequest()
 def index():
     form = UrlForm()
     if form.validate_on_submit:
-        handler.check_url(form.url.data)
-        handler.process_url(form.url.data)
+        # handler.check_url(form.url.data)
+        # handler.process_url(form.url.data)
+        pass
     return render_template("index.html", form=form)
 
 
