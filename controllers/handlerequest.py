@@ -47,14 +47,13 @@ class HandleRequest():
                 elif confirm == False:
                     not_found_count += 1
                     broken_links.append(link_details)
-            print(" List Of Broken Links :" + broken_links)
-            print("Total Number Of Links Found:" + num_of_links_found)
-            print("Total Number Of Broken Links:" + not_found_count)
-            print("Total Number Of Links OK" + count)
+            print(" List Of Broken Links :" , broken_links)
+            print("Total Number Of Links Found: {}".format(num_of_links_found))
+            print("Total Number Of Broken Links: {}".format(not_found_count))
+            print("Total Number Of Links OK : {}".format(count))
         else:
             message = "Yah!! No Broken Link Found"
             return message
-        print(soup)
 
     def check_if_link_is_broken(self, link):
         return_bool = None
@@ -65,9 +64,3 @@ class HandleRequest():
         elif res_code == 404:
             return_bool = False
         return return_bool
-
-
-url = HandleRequest()
-url.default_form_url = 'http://127.0.0.1:5000'
-expected_url = url.check_url(url.default_form_url)
-url.process_url(expected_url)
