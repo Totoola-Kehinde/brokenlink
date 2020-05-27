@@ -6,6 +6,15 @@ class HandleRequest():
     """Class To Handle Request passed from user form"""
     default_form_url = 'https://google.com'
 
+    # Objects To Return To The Views
+    title_tag = None
+    message = None
+    num_of_links_found = None
+    not_found_count = None
+    count = None
+    broken_links = []
+
+
     def check_url(self, form_data):
         if form_data is None:
             form_data = self.default_form_url
@@ -15,20 +24,15 @@ class HandleRequest():
             return form_data
     
     def process_url(self, form_url):
-        # Objects To Return To The Views
-        title_tag = None
         link = form_url
-        message = None
-        num_of_links_found = None
-        broken_links = []
-        source = requests.get(form_url).text
+        source = requests.get(link).text
         print(source)
         # Using BeautifulSoup
         soup = BeautifulSoup(source, 'html.parser')
-        title_tag = soup.title
+        self.title_tag = soup.title.string
         body_tags = soup.body
         anchor_tags = body_tags.find_all('a')
-        num_of_links_found = len(anchor_tags)
+        self.num_of_links_found = len(anchor_tags)
 
         #############################################
         #### Filter The Broken Links ################
@@ -37,20 +41,20 @@ class HandleRequest():
 
         if anchor_tags is not None:
             # Links Ok Count
-            count = 0
-            not_found_count = 0
+            self.count = 0
+            self.not_found_count = 0
             for link in anchor_tags:
                 link_details = {link.string:link['href']}
                 confirm = self.check_if_link_is_broken(link['href'])
                 if confirm == True:
-                    count += 1
+                    self.count += 1
                 elif confirm == False:
-                    not_found_count += 1
-                    broken_links.append(link_details)
-            print(" List Of Broken Links :" , broken_links)
-            print("Total Number Of Links Found: {}".format(num_of_links_found))
-            print("Total Number Of Broken Links: {}".format(not_found_count))
-            print("Total Number Of Links OK : {}".format(count))
+                    self.not_found_count += 1
+                    self.broken_links.append(link_details)
+            print(" List Of Broken Links :" , self.broken_links)
+            print("Total Number Of Links Found: {}".format(self.num_of_links_found))
+            print("Total Number Of Broken Links: {}".format(self.not_found_count))
+            print("Total Number Of Links OK : {}".format(self.count))
         else:
             message = "Yah!! No Broken Link Found"
             return message

@@ -32,7 +32,7 @@
     <hr>
 
     <div class="row justify-content-center">
-        <div class="display-4"><i>Result</i></div>
+        <div class="display-4"><i>Result From Check</i></div>
     </div> <!--Result Header-->
 
     <div class="row justify-content-center">
@@ -41,14 +41,21 @@
             <div class="card rounded">
               <div class="card-body">
                 <!-- Link Page Title -->
-                <div class="h3">Page Title</div>
+                <div class="h3">{{title_tag}}</div>
 
                 <!-- Link From Form Data -->
-                <div class="text-muted"><span class="badge badge-pill badge-info">Link From Form Data</span></div>
+                <div class="text-muted"><span class="badge badge-pill badge-info">{{link}}</span></div>
                 <hr>
 
-                <h4 class="card-title">No. Of Broken Links Found - </h4>
-                <p class="card-text">Broken Link List <span class="small">Anchor Text</span> <span class="badge badge-pill badge-danger">Need Fix</span> </p>
+                <h4 class="card-title">Total Links Found - {{num_of_links}} </h4>
+                <h4 class="card-title">No. Of Broken Links - {{not_found_count}}</h4>
+                <h4 class="card-title">Total Links OK - {{count}}</h4>
+                {% for key in broken_links %}
+                {% for k in key %}
+                <p class="card-text">{{k.string}}  <span class="small"><a href="{{k.parent['href']}}">{{k.parent['href']}}</a></span> <span class="badge badge-pill badge-danger">Need Fix</span> </p>
+                {% endfor %}
+                {% endfor %} 
+
               </div>
             </div>
             <!-- Broken Links -->
