@@ -26,7 +26,7 @@ class HandleRequest():
     def process_url(self, form_url):
         link = form_url
         source = requests.get(link).text
-        print(source)
+        # print(source)
         # Using BeautifulSoup
         soup = BeautifulSoup(source, 'html.parser')
         self.title_tag = soup.title.string
