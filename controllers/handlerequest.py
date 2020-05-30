@@ -16,6 +16,9 @@ class HandleRequest():
 
 
     def check_url(self, form_data):
+        """
+        Method to Check URL from user form
+        """
         if form_data is None:
             form_data = self.default_form_url
             print(form_data)
@@ -24,6 +27,9 @@ class HandleRequest():
             return form_data
     
     def process_url(self, form_url):
+        """
+        Method that processes the URL
+        """
         link = form_url
         source = requests.get(link).text
         # print(source)
